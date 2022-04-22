@@ -22,7 +22,12 @@ Output: [[2,2,2],[2,2,2]]
 
 public class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        if (image.length == 0 || image[0].length == 0
+        || image.length < sr || image[0].length < sc) return image;
+
         int oldColor = image[sr][sc];
+        if (oldColor == newColor) return image;
+
         recursion(image, sr, sc, newColor, oldColor);
         return image;
     }
@@ -31,14 +36,16 @@ public class Solution {
         int rows = image.length;
         int cols = image[0].length;
 
-        image[row][col] = newColor;
-        if (row + 1 < rows)
-        	recursion(image, row + 1, col, newColor, oldColor);
-        if (row >= 0)
-        	recursion(image, row - 1, col, newColor, oldColor);
-        if (col + 1 < cols)
-        	recursion(image, row, col + 1, newColor, oldColor);
-        if (col >= 0)
-        	recursion(image, row, col - 1, newColor, oldColor);
+        if (image[row][col] == oldColor) {
+            image[row][col] = newColor;
+            if (row + 1 < rows)
+                recursion(image, row + 1, col, newColor, oldColor);
+            if (row > 0)
+                recursion(image, row - 1, col, newColor, oldColor);
+            if (col + 1 < cols)
+                recursion(image, row, col + 1, newColor, oldColor);
+            if (col > 0)
+                recursion(image, row, col - 1, newColor, oldColor);
+        }
     }
 }
