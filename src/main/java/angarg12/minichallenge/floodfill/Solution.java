@@ -22,9 +22,11 @@ Output: [[2,2,2],[2,2,2]]
 
 public class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        // Validate input, make sure there are rows and columns and starting position exists.
         if (image.length == 0 || image[0].length == 0
         || image.length < sr || image[0].length < sc) return image;
 
+        // Check new color is not equal to old color.
         int oldColor = image[sr][sc];
         if (oldColor == newColor) return image;
 
@@ -36,6 +38,7 @@ public class Solution {
         int rows = image.length;
         int cols = image[0].length;
 
+        // Check current color is equal to old color, otherwise we just flood the entire board.
         if (image[row][col] == oldColor) {
             image[row][col] = newColor;
             if (row + 1 < rows)
